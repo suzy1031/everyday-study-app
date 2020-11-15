@@ -1,0 +1,20 @@
+{
+  "name": "everyday-study-app",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
+    "@rails/webpacker": "5.2.1",
+    "axios": "^0.21.0",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.5",
+    "vue-router": "^3.4.9",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
+}
