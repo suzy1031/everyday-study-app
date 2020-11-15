@@ -88,42 +88,42 @@ export default {
 </script>
 <style>
 .study-time-circle {
-  width: 150px;
-  height: 150px;
+  width: 24em;
+  height: 24em;
   background: #0066FF;
   border-radius: 50%;
-  margin: 20px auto;
+  margin: 2em auto;
   text-align:center;
-  line-height: 150px;
+  line-height: 24em;
 }
 h3.page-title {
-  font-size: 32px;
+  font-size: 3.2em;
   color: white;
 }
 .fa-twitter-square {
-  font-size: 38px;
+  font-size: 3.8em;
   color: rgba(29,161,242,1.00);
 }
 .button-section {
-  width: 300px;
+  width: 30em;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 3em;
 }
 .study-time-button {
-  width: 160px;
+  width: 9em;
   background: #0066FF;
   color: white;
-  font-size: 18px;
+  font-size: 1.8em;
   font-weight: bold;
   padding: .9em;
   border-radius: .5em;
-  margin-top: 10px;
+  margin-top: 1em;
 }
 /* セレクトボックスレイアウト */
 .custom-select {
   position : relative;
   width: 100%;
-  margin: 20px auto;
+  margin: 2em auto;
   cursor: pointer;
 }
 .select, .label {
@@ -138,7 +138,7 @@ h3.page-title {
 .selection-choice {
   color: white;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.8em;
 }
 .label {
   position: relative;
@@ -152,8 +152,8 @@ h3.page-title {
   position: absolute;
   right: 0;
   top: 0;
-  padding: 1em;
-  border-left: 1px solid white;
+  padding: 1.6em;
+  border-left: .1em solid white;
 }
 .select-1 {
   background: #0066FF;

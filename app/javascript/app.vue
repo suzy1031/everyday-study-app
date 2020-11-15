@@ -78,16 +78,19 @@ export default {
   margin: 0;
   padding: 0;
 }
+html {
+  /* html全体のフォントサイズを10pxに指定 */
+  font-size: 62.5%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  min-height: 95.5vh;
+  min-height: 100vh;
 }
 a {
   text-decoration: none;
@@ -105,12 +108,18 @@ input {
   border: none;
   outline: none;
   appearance: none;
-  border-radius: 4px;
+  border-radius: .25em;
   padding: 3px;
   font-size: 18px;
 }
 input:focus {
   outline: none;
+}
+h1 {
+  font-size: 2.8em;
+}
+h3 {
+  font-size: 1.8em;
 }
 /* ここまで */
 
@@ -123,21 +132,20 @@ footer {
 }
 .footer-button {
   width: calc(100% / 3);
-  height: 150px;
+  height: 6em;
   margin: 0;
-  line-height: 150px;
+  line-height: 8em;
   background: #0066FF;
-  /* color: white; */
   font-weight: bold;
 }
 span {
   color: rgba(29,161,242,1.00);
 }
 span.history, span.setting {
-  padding-left: 5px;
+  padding-left: .5em;
 }
 .fa-edit, .fa-chart-line, .fa-cog {
-  font-size: 38px;
+  font-size: 3.8em;
   color: rgba(29,161,242,1.00);
 }
 .active {
