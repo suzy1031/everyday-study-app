@@ -3,6 +3,10 @@ class Study < ApplicationRecord
   validates :total, presence: true, numericality: true
 
   def self.this_week_total
-    self.where(created_at: Date.today.beginning_of_week - 1..Date.today.end_of_week.end_of_day - 1.day).sum(:time)
+    @this_day = Date.today # 今日の日付
+    @this_sunday = @this_day.beginning_of_week(:sunday) # 日曜日
+    @this_saturday = @this_day.end_of_week(:sunday) # 土曜日
+    # 日曜日を週の始まりをする為、日〜土のデータ取得
+    self.where(created_at: @this_sunday..@this_saturday)
   end
 end
