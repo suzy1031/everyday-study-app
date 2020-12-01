@@ -7,10 +7,9 @@ class Api::V1::StudiesController < ApiController
 
   def index
     # todo currentUserロジック
-    # todo currentUserの今週日曜日~土曜日までのsum(:time)を取得する
+    # todo currentUserの今週日曜日~土曜日までのデータを取得する
     studies = Study.this_week_total
     render json: studies
-
   end
 
   def create
