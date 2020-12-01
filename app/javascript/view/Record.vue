@@ -3,30 +3,26 @@
     <Title :title="title"></Title>
     <h3>{{ thisWeekDate() }}</h3>
     <div class="study-time-circle">
-      <h3 class="page-title">{{ latestTotal }}h</h3>
+      <div>
+        <h3 class="page-title">{{ calcThisWeekTotal }}h</h3>
+        <h3 class="page-sub-title">total：{{ userTotal.total }}h</h3>
+      </div>
     </div>
     <div><font-awesome-icon :icon="['fab', 'twitter-square']"/></div>
-    <!-- todo formに変更 -->
     <div class="button-section">
-      <div v-if="errors.length != 0">
-        <ul v-for=" e in errors" :key="e">
-          <li><font color="red">{{ e }}</font></li>
-        </ul>
-      </div>
-      <form @submit="postStudyTime">
+      <form @submit.prevent="postStudyTime">
         <v-select v-model="study.time"
           :options="options"
           label="text"
           :reduce="options => options.value"
           placeholder="select study time"
           class="style-chooser"
-          id="time">
+          id="time"
+          >
         </v-select>
-        <button type="submit" class="study-time-button">register</button>
+        <button v-if="this.study.time" type="submit" class="study-time-button">register</button>
       </form>
-      <!-- todo <input type="hidden">totalをもたせる -->
     </div>
-    <!-- ここまで -->
   </div>
 </template>
 
@@ -42,36 +38,69 @@ export default {
     return {
       title: 'This Week Study Record',
       options: [
+        // todo ユーザーがカスタムできるようにする
         { text: '0:30', value: '0.5'},
         { text: '1:00', value: '1'},
         { text: '1:30', value: '1.5'},
         { text: '2:00', value: '2'}
       ],
-      latestTotal: '',
-      study: {
+      studies: [],   // response.data格納用配列
+      userTotal: '', // 最新のtotal
+      study: {       // v-model
         time: '',
-        total: '19'
+        total: ''
       },
       errors: ''
     }
   },
   mounted () {
-    // 最新の合計時間をjsonで取得
     axios
       .get(
         'api/v1/studies.json'
       )
       .then(response => {
-        this.latestTotal = response.data
+        this.studies = response.data
+        this.userTotal = response.data.slice(-1)[0] //最新のstudies.total取得
       });
+  },
+  computed: {
+    // 今週の合計時間
+    calcThisWeekTotal() {
+      var total = 0
+      const length = this.studies.length // jsonで受けった配列の数
+      // 取得データの日付
+      var data_date = new Date(this.userTotal.created_at) // 最新のレコードの作成日を日付型で取得
+      // todo 共通処理化 今週日曜日の日付
+      var today = new Date() // 日付インスタンス作成
+      var this_year = today.getFullYear(); //今年
+      var this_month = today.getMonth(); //今月
+      var date = today.getDate(); //今日の日付
+      var day_num = today.getDay(); //今日の曜日 => 添字[0,1,2,3,4,5,6] 日~土
+      var this_sunday = date - day_num; //12 - 4 = 8(日)
+      var start_date = new Date(this_year, this_month, this_sunday);
+      // 日付を比較
+      if (data_date < start_date) {
+        return total
+      } else {
+        for(let i = 0; i < length; i++) { // 配列の数分ループ処理をする
+          total += this.studies[i].time //studies[配列の数].timeをtotalに代入
+        }
+        return total
+      }
+    }
   },
   methods: {
     // 学習時間を登録する
     postStudyTime() {
+      // 入力した学習時間と最新の合計時間を計算
+      var calcTotalValue = parseFloat(this.userTotal.total) + parseFloat(this.study.time)
+      // 計算結果を変数に格納し、study.totalに代入する
+      this.study.total = calcTotalValue;
       axios.post('/api/v1/studies', this.study)
       .then(response => {
         let e = response.data
-        this.$router.push('/');
+        // 合計時間の最新を取得 セレクトボックス初期化
+        this.$router.go({path: this.$router.currentRoute.path, force: true})
       })
       .catch(error => {
         console.log(error);
@@ -110,11 +139,18 @@ export default {
   background: #0066FF;
   border-radius: 50%;
   margin: 2em auto;
-  text-align:center;
-  line-height: 24em;
+  /* 子要素「h3」を真ん中中央揃えにする */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* ここまで */
 }
 h3.page-title {
   font-size: 3.2em;
+  color: white;
+}
+h3.page-sub-title {
+  font-size: 1.8em;
   color: white;
 }
 .fa-twitter-square {
