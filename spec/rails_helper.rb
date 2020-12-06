@@ -5,6 +5,7 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rspec'
 Faker::Config.locale = :ja
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -42,26 +43,12 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  # DatabaseCleanerの設定
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
+  config.before(:each) do |example|
+    if example.metadata[:type] == :system
+      driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+    end
   end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
-
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:all) do
-    DatabaseCleaner.clean
-  end
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
