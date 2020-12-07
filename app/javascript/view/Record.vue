@@ -60,7 +60,12 @@ export default {
       )
       .then(response => {
         this.studies = response.data
-        this.userTotal = response.data.slice(-1)[0] //最新のstudies.total取得
+        if( this.studies.length == 0 ) { // データが無い場合
+          this.userTotal = [] // 空の配列を返す
+          this.userTotal.total = 0 // totalに初期値「0」をセット
+        } else {
+          this.userTotal = response.data.slice(-1)[0] //最新のstudies.total取得
+        }
       });
   },
   computed: {
