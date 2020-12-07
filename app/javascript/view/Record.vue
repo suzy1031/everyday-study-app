@@ -11,15 +11,14 @@
     <div><font-awesome-icon :icon="['fab', 'twitter-square']"/></div>
     <div class="button-section">
       <form @submit.prevent="postStudyTime">
-        <v-select v-model="study.time"
-          :options="options"
-          label="text"
-          :reduce="options => options.value"
-          placeholder="select study time"
-          class="style-chooser"
-          id="time"
-          >
-        </v-select>
+        <select id="time" v-model="study.time" class="styled-select" name="color">
+          <option value="">choose study time</option>
+          <option value="0.5">0:30</option>
+          <option value="1">1:00</option>
+          <option value="1.5">1:30</option>
+          <option value="2">2:00</option>
+          <!-- <option v-for="option in options" :key="option.text" :value="option.value">{{option.text}}</option> -->
+        </select>
         <button v-if="this.study.time" type="submit" class="study-time-button">register</button>
       </form>
     </div>
@@ -38,7 +37,7 @@ export default {
     return {
       title: 'This Week Study Record',
       options: [
-        // todo ユーザーがカスタムできるようにする
+        // todo ユーザーがカスタムできるようにする時に使用
         { text: '0:30', value: '0.5'},
         { text: '1:00', value: '1'},
         { text: '1:30', value: '1.5'},
@@ -178,27 +177,38 @@ h3.page-sub-title {
   margin-top: 1em;
 }
 /* セレクトボックスレイアウト */
-.style-chooser .vs__search::placeholder, /*プレースホルダー*/
-.style-chooser .vs__dropdown-toggle, /*セレクトボックス全体*/
-.style-chooser .vs__dropdown-menu /*ドロップダウンメニュー*/{
-  background: #0066FF;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2em;
-  text-align: center;
-  border: none;
+.styled-select {
+  /* デフォルトのスタイルを解除 */
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  /* スタイル */
+  display: inline-block;
+  width: 100%; /* 幅 */
+  max-width: 20em; /* 最大幅 */
+  padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
+  cursor: pointer; /* カーソルを指に */
+  line-height: 1.4; /* 行高 */
+  font-size: 1.4em; /* フォントサイズ */
+  font-weight: 700; /* 太字に */
+  color: white; /* 文字色 */
+  border-radius: .4em; /* 角丸 */
+  background-color: #0066FF; /* 背景色 */
+  border: solid 1px #e1e8ef; /* 枠線 */
+  /* 三角マークを作る */
+  background-image: linear-gradient(45deg, transparent 50%, white 50%),  linear-gradient(135deg, white 50%, transparent 50%);
+  background-size: 5px 5px, 5px 5px;
+  background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
 }
-.style-chooser .vs__dropdown-menu {
-  background: white;
-  opacity: 0.9;
-  font-size: 1.6em;
+/* フォーカス時 */
+.styled-select:focus {
+  outline: 0;
+  border-color: #b0c5ff; /* 枠線色を変更 */
 }
-.style-chooser .vs__clear /* × */,
-.style-chooser .vs__open-indicator/* ▽ */ {
-  fill: white;
-}
-.style-chooser .vs__selected /*選んだオプション*/ {
-  color: white;
+/* IEでデフォルトの矢印を消す */
+.styled-select::-ms-expand {
+  display: none;
 }
 /* ここまで */
 </style>
