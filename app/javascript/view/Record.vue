@@ -170,30 +170,31 @@ h3.page-sub-title {
 }
 .study-time-button {
   width: 9em;
-  background: #0066FF;
-  color: white;
+  border: .15em solid #0066FF;
+  background: white;
+  color: black;
   font-size: 1.8em;
-  font-weight: bold;
-  padding: .9em;
-  border-radius: .5em;
-  margin-top: 1em;
+  padding: .4em;
+  border-radius: .2em;
+  margin-top: .7em;
 }
 /* セレクトボックスレイアウト */
 .select {
   position: relative;
-  width: 200px;
-  border: #ccc solid 2px;
-  border-radius: 3px;
+  width: 25em;
+  border: #0066FF solid .2em;
+  border-radius: .3em;
+  margin: auto;
 }
 .select::after {
-  /* position: absolute;
+  position: absolute;
   top: 50%;
-  right: 8px;
-  margin-top: -8px;
-  content: "\f0f5";
-  color: #ccc;
-  font-size: 16px;
-  z-index: -1; */
+  right: .3em;
+  margin-top: -.6em;
+  content: "▼";
+  color: #0066FF;
+  font-size: 1.5em;
+  z-index: -1;
 }
 .select > select {
   -webkit-appearance: none;
@@ -201,11 +202,11 @@ h3.page-sub-title {
   appearance: none;
   display: block;
   width: 100%;
-  height: 32px;
-  line-height: 32px;
-  font-size: 16px;
+  height: 2.5em;
+  line-height: 2.5em;
+  font-size: 1.6em;
   box-sizing: border-box;
-  padding-left: 8px;
+  padding-left: .6em;
   border: none;
   background-color: transparent;
   border-radius: 0;
