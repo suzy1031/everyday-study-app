@@ -11,14 +11,16 @@
     <div><font-awesome-icon :icon="['fab', 'twitter-square']"/></div>
     <div class="button-section">
       <form @submit.prevent="postStudyTime">
-        <select id="time" v-model="study.time" class="styled-select" name="color">
-          <option value="">choose study time</option>
-          <option value="0.5">0:30</option>
-          <option value="1">1:00</option>
-          <option value="1.5">1:30</option>
-          <option value="2">2:00</option>
-          <!-- <option v-for="option in options" :key="option.text" :value="option.value">{{option.text}}</option> -->
-        </select>
+        <div class="select">
+          <select id="time" v-model="study.time">
+            <option value="">choose study time</option>
+            <option value="0.5">0:30</option>
+            <option value="1">1:00</option>
+            <option value="1.5">1:30</option>
+            <option value="2">2:00</option>
+            <!-- <option v-for="option in options" :key="option.text" :value="option.value">{{option.text}}</option> -->
+          </select>
+        </div>
         <button v-if="this.study.time" type="submit" class="study-time-button">register</button>
       </form>
     </div>
@@ -177,38 +179,37 @@ h3.page-sub-title {
   margin-top: 1em;
 }
 /* セレクトボックスレイアウト */
-.styled-select {
-  /* デフォルトのスタイルを解除 */
-  -moz-appearance: none;
+.select {
+  position: relative;
+  width: 200px;
+  border: #ccc solid 2px;
+  border-radius: 3px;
+}
+.select::after {
+  /* position: absolute;
+  top: 50%;
+  right: 8px;
+  margin-top: -8px;
+  content: "\f0f5";
+  color: #ccc;
+  font-size: 16px;
+  z-index: -1; */
+}
+.select > select {
   -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  /* スタイル */
-  display: inline-block;
-  width: 100%; /* 幅 */
-  max-width: 20em; /* 最大幅 */
-  padding: 0.6em 1.5em 0.6em 0.5em; /* 文字周りの余白 */
-  cursor: pointer; /* カーソルを指に */
-  line-height: 1.4; /* 行高 */
-  font-size: 1.4em; /* フォントサイズ */
-  font-weight: 700; /* 太字に */
-  color: white; /* 文字色 */
-  border-radius: .4em; /* 角丸 */
-  background-color: #0066FF; /* 背景色 */
-  border: solid 1px #e1e8ef; /* 枠線 */
-  /* 三角マークを作る */
-  background-image: linear-gradient(45deg, transparent 50%, white 50%),  linear-gradient(135deg, white 50%, transparent 50%);
-  background-size: 5px 5px, 5px 5px;
-  background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
-  background-repeat: no-repeat;
-}
-/* フォーカス時 */
-.styled-select:focus {
-  outline: 0;
-  border-color: #b0c5ff; /* 枠線色を変更 */
-}
-/* IEでデフォルトの矢印を消す */
-.styled-select::-ms-expand {
-  display: none;
+  display: block;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding-left: 8px;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
+  outline: none;
 }
 /* ここまで */
 </style>
