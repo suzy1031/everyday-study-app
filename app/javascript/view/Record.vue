@@ -1,7 +1,9 @@
 <template>
   <div>
-    <Title :title="title"></Title>
-    <h3>{{ thisWeekDate() }}</h3>
+    <header>
+      <Title :title="title"></Title>
+      <h3>{{ thisWeekDate() }}</h3>
+    </header>
     <div class="study-time-circle">
       <div>
         <h3 class="page-title">{{ calcThisWeekTotal }}h</h3>
@@ -140,11 +142,11 @@ export default {
 </script>
 <style>
 .study-time-circle {
-  width: 24em;
-  height: 24em;
+  width: 22em;
+  height: 22em;
   background: #0066FF;
   border-radius: 50%;
-  margin: 2em auto;
+  margin: 7em auto 1em;
   /* 子要素「h3」を真ん中中央揃えにする */
   display: flex;
   justify-content: center;

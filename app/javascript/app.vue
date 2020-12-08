@@ -92,6 +92,11 @@ html {
   flex-direction: column;
   min-height: 91vh;
 }
+header {
+  position: fixed;
+  width: 100%;
+  height: 4em;
+}
 a {
   text-decoration: none;
   color: white;
