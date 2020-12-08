@@ -90,7 +90,7 @@ html {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
-  min-height: 91vh;
+  min-height: 85vh;
 }
 header {
   position: fixed;
