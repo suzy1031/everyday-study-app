@@ -92,11 +92,6 @@ html {
   flex-direction: column;
   min-height: 100vh;
 }
-header {
-  position: fixed;
-  width: 100%;
-  height: 4em;
-}
 a {
   text-decoration: none;
   color: white;
@@ -130,11 +125,11 @@ h3 {
 
 /* フッターのレイアウト */
 footer {
-  position:absolute;
-  width: 100%;
-  bottom: 20%;
-  right: 0;
   /* margin-top: auto; */
+  width: 100%;
+  position: fixed;
+  bottom: 10%;
+  right: 0;
 }
 .footer-button-section {
   display: flex;
