@@ -125,11 +125,7 @@ h3 {
 
 /* フッターのレイアウト */
 footer {
-  /* margin-top: auto; */
-  width: 100%;
-  position: fixed;
-  bottom: 10%;
-  right: 0;
+  margin-top: auto;
 }
 .footer-button-section {
   display: flex;

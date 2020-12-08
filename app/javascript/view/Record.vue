@@ -146,7 +146,7 @@ export default {
   height: 22em;
   background: #0066FF;
   border-radius: 50%;
-  margin: 0 auto;
+  margin: 1em auto;
   /* 子要素「h3」を真ん中中央揃えにする */
   display: flex;
   justify-content: center;
