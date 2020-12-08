@@ -90,7 +90,7 @@ html {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
-  min-height: 87.5vh;
+  min-height: 100vh;
 }
 header {
   position: fixed;
@@ -130,7 +130,11 @@ h3 {
 
 /* フッターのレイアウト */
 footer {
-  margin-top: auto;
+  position:absolute;
+  width: 100%;
+  bottom: 20%;
+  right: 0;
+  /* margin-top: auto; */
 }
 .footer-button-section {
   display: flex;
