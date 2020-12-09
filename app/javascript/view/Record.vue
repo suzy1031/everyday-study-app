@@ -144,7 +144,8 @@ export default {
   height: 22em;
   background: #0066FF;
   border-radius: 50%;
-  margin: 1em auto;
+  margin: auto;
+  margin-top: 1.5em;
   /* 子要素「h3」を真ん中中央揃えにする */
   display: flex;
   justify-content: center;
@@ -162,11 +163,12 @@ h3.page-sub-title {
 .fa-twitter-square {
   font-size: 3.8em;
   color: rgba(29,161,242,1.00);
+  margin-top: .5em;
 }
 .button-section {
   width: 30em;
   margin: auto;
-  margin-top: 3em;
+  margin-top: 2.5em;
 }
 .study-time-button {
   width: 9em;
@@ -176,7 +178,7 @@ h3.page-sub-title {
   font-size: 1.8em;
   padding: .4em;
   border-radius: .2em;
-  margin-top: .7em;
+  margin-top: 1.5em;
 }
 /* セレクトボックスレイアウト */
 .select {
