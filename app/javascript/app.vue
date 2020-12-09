@@ -1,28 +1,6 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <footer>
-      <div class="footer-button-section">
-        <div class="footer-button" v-on:click="activetab=1">
-          <router-link to="/">
-            <font-awesome-icon :icon="['far', 'edit']" v-bind:class="[ activetab === 1 ? 'active' : '' ]"/>
-            <span v-bind:class="[ activetab === 1 ? 'active' : '' ]">Record</span>
-          </router-link>
-        </div>
-        <div class="footer-button" v-on:click="activetab=2">
-          <router-link to="/history">
-            <font-awesome-icon :icon="['fas', 'chart-line']" v-bind:class="[ activetab === 2 ? 'active' : '' ]"/>
-            <span class="history" v-bind:class="[ activetab === 2 ? 'active' : '' ]">History</span>
-          </router-link>
-        </div>
-        <div class="footer-button" v-on:click="activetab=3">
-          <router-link to="/setting">
-            <font-awesome-icon :icon="['fas', 'cog']" v-bind:class="[ activetab === 3 ? 'active' : '' ]"/>
-            <span class="setting" v-bind:class="[ activetab === 3 ? 'active' : '' ]">Setting</span>
-          </router-link>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -67,7 +45,6 @@ export default {
   router,
   data() {
     return {
-      activetab: ''
     }
   }
 }
@@ -120,36 +97,6 @@ h1 {
 }
 h3 {
   font-size: 1.8em;
-}
-/* ここまで */
-
-/* フッターのレイアウト */
-footer {
-  margin-top: auto;
-}
-.footer-button-section {
-  display: flex;
-}
-.footer-button {
-  width: calc(100% / 3);
-  height: 6em;
-  margin: 0;
-  line-height: 8em;
-  background: #0066FF;
-  font-weight: bold;
-}
-span {
-  color: rgba(29,161,242,1.00);
-}
-span.history, span.setting {
-  padding-left: .5em;
-}
-.fa-edit, .fa-chart-line, .fa-cog {
-  font-size: 3.8em;
-  color: rgba(29,161,242,1.00);
-}
-.active {
-  color: white;
 }
 /* ここまで */
 </style>
