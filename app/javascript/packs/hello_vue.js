@@ -13,9 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { Slide } from 'vue-burger-menu'
 
 library.add(fas, far, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('slide', Slide);
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
