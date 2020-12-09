@@ -1,9 +1,7 @@
 <template>
   <div>
-    <header>
-      <Title :title="title"></Title>
-      <h3>{{ thisWeekDate() }}</h3>
-    </header>
+    <Title :title="title"></Title>
+    <h3>{{ thisWeekDate() }}</h3>
     <div class="study-time-circle">
       <div>
         <h3 class="page-title">{{ calcThisWeekTotal }}h</h3>
@@ -39,7 +37,7 @@ export default {
   },
   data() {
     return {
-      title: 'This Week Study Record',
+      title: 'Record',
       options: [
         // todo ユーザーがカスタムできるようにする時に使用
         { text: '0:30', value: '0.5'},
