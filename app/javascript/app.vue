@@ -12,6 +12,7 @@ import History from './view/History';
 import Setting from './view/Setting';
 import Login from './view/Login';
 import Signup from './view/Signup';
+import Store from './store/store.js';
 
 const router = new VueRouter({
   mode: 'history',
@@ -43,6 +44,7 @@ Vue.use(VueRouter)
 
 export default {
   router,
+  store: Store,
   data() {
     return {
     }
