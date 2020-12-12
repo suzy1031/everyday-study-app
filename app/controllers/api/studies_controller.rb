@@ -1,4 +1,6 @@
-class Api::V1::StudiesController < ApiController
+class Api::StudiesController < ApplicationController
+  protect_from_forgery except: [:index, :create, :update, :destroy]
+
   before_action :set_study, only: [:show]
 
   rescue_from Exception, with: :render_status_500
@@ -9,6 +11,7 @@ class Api::V1::StudiesController < ApiController
     # todo currentUserロジック
     # todo currentUserの今週日曜日~土曜日までのデータを取得する
     studies = Study.this_week_total
+    # studies = Study.all
     render json: studies
   end
 
