@@ -57,7 +57,7 @@ export default {
   mounted () {
     axios
       .get(
-        'api/v1/studies.json'
+        'api/studies.json'
       )
       .then(response => {
         this.studies = response.data
@@ -102,7 +102,7 @@ export default {
       var calcTotalValue = parseFloat(this.userTotal.total) + parseFloat(this.study.time)
       // 計算結果を変数に格納し、study.totalに代入する
       this.study.total = calcTotalValue;
-      axios.post('/api/v1/studies', this.study)
+      axios.post('/api/studies', this.study)
       .then(response => {
         let e = response.data
         // 合計時間の最新を取得 セレクトボックス初期化
