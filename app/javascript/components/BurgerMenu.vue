@@ -1,6 +1,6 @@
 <template>
   <slide noOverlay>
-    <router-link to="/">
+    <router-link to="/Record">
       <span>Record</span>
     </router-link>
     <router-link to="/history">
