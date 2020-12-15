@@ -1,7 +1,9 @@
 <template>
   <div>
     <header>
-      <BurgerMenu></BurgerMenu>
+      <div v-if="signedIn">
+        <BurgerMenu></BurgerMenu>
+      </div>
       <div class="title-position">
       <h1>{{title}}</h1>
       </div>
@@ -10,6 +12,7 @@
 </template>
 <script>
 import BurgerMenu from './BurgerMenu';
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -17,6 +20,12 @@ export default {
   },
   props: {
     title: String
+  },
+  computed: mapState([
+    'signedIn'
+  ]),
+  mounted () {
+    this.$store.dispatch('doFetchSignedIn')
   }
 }
 </script>
