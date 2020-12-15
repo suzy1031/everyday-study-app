@@ -1,15 +1,13 @@
 <template>
   <div>
     <Title :title="title"></Title>
-    <!-- todo vuex使ってログアウトする処理 -->
-    <router-link to="/login">
-      <button type="submit" class="study-time-button logout">Logout</button>
-    </router-link>
+    <a href="/" v-if="signedIn" @click="signOut" class="study-time-button logout">Logout</a>
   </div>
 </template>
 
 <script>
-import Title from '../components/Title';
+import Title from '../components/Title'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -18,6 +16,25 @@ export default {
   data() {
     return {
       title: "Settings"
+    }
+  },
+  computed: mapState([
+    'signedIn'
+  ]),
+  mounted () {
+    this.$store.dispatch('doFetchSignedIn')
+  },
+  methods: {
+    setError(error, text) {
+      this.error = (error.response && error.response.data && error.response.data.error) || text
+    },
+    signOut() {
+      this.$http.secured.delete(`/api/signin`)
+      .then(response => {
+        delete localStorage.csrf
+        delete localStorage.signedIn
+      })
+      .catch(error => this.setError(error, 'Cannot sign out'))
     }
   }
 }
