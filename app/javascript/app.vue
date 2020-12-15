@@ -63,5 +63,10 @@ h1 {
 h3 {
   font-size: 1.8em;
 }
+.common-error-message {
+  color: red;
+  font-size: 1.6em;
+  margin-top: .5em;
+}
 /* ここまで */
 </style>
