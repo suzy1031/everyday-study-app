@@ -7,9 +7,9 @@
 </template>
 <style>
 .not-yet-function {
-  width: 200px;
-  height: 60px;
-  line-height: 60px;
+  width: 20em;
+  height: 6em;
+  line-height: 6em;
   background: #0066FF;
   border-radius: .5em;
   position: absolute;
