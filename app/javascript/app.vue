@@ -44,15 +44,15 @@ button {
   appearance: none;
 }
 input {
-  width: 250px;
-  height: 35px;
-  margin: 5px auto;
+  width: 13em;
+  height: 5em;
+  margin: .4em auto;
   border: none;
   outline: none;
   appearance: none;
   border-radius: .25em;
-  padding: 3px;
-  font-size: 18px;
+  padding: .3em;
+  font-size: 1.8em;
 }
 input:focus {
   outline: none;
