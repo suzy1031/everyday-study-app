@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 export default new VueRouter({
   routes: [
     {
-      path: '/Record',
+      path: '/record',
       component: Record
     },
     {
