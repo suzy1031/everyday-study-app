@@ -1,18 +1,18 @@
 <template>
   <div>
-    <Title :title="title"></Title>
-    <ButtonNotFunc></ButtonNotFunc>
+    <Header :title="title"></Header>
+    <ButtonComingSoon></ButtonComingSoon>
   </div>
 </template>
 
 <script>
-import ButtonNotFunc from '../components/ButtonNotFunc';
-import Title from '../components/Title';
+import ButtonComingSoon from '../components/ButtonComingSoon';
+import Header from '../components/Header';
 
 export default {
   components: {
-    ButtonNotFunc,
-    Title
+    ButtonComingSoon,
+    Header
   },
   data() {
     return {

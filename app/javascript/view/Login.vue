@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Title :title="title"></Title>
+    <Header :title="title"></Header>
     <h4>Please Login And enjoy App!!</h4>
+    <div class="common-error-message" v-if="error">{{ error }}</div>
     <form @submit.prevent="signin">
-      <div class="common-error-message" v-if="error">{{ error }}</div>
       <div class="login-section">
         <label for="email" class="form-label">Email</label>
         <input v-model="email" id="email" type="email" required="required" autocomplete="off">
         <label for="password" class="form-label">Password</label>
-        <input v-model="password" id="password" type="password" required="required" autocomplete="off">
+        <input v-model="password" id="password" type="password" required="required" autocomplete="off" maxlength="20">
         <router-link to="/signup" class="signup-path">Sign Up</router-link>
       </div>
       <button type="submit" class="study-time-button">Sign In</button>
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import Title from '../components/Title';
+import Header from '../components/Header';
 
 export default {
   name: 'Signin',
   components: {
-    Title
+    Header
   },
   data() {
     return {
@@ -53,7 +53,7 @@ export default {
       localStorage.signedIn = true
       this.$store.dispatch('doFetchSignedIn')
       this.error = ''
-      this.$router.replace('/Record')
+      this.$router.replace('/record')
     },
     signinFailed(error) {
       this.error = (error.response && error.response.data && error.response.data.error) || ''

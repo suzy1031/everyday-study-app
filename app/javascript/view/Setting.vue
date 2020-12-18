@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Title :title="title"></Title>
+    <Header :title="title"></Header>
     <a href="/" v-if="signedIn" @click="signOut" class="study-time-button logout">Logout</a>
   </div>
 </template>
 
 <script>
-import Title from '../components/Title'
+import Header from '../components/Header'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Title
+    Header
   },
   data() {
     return {
