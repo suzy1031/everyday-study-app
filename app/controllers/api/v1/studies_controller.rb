@@ -1,4 +1,4 @@
-class Api::StudiesController < ApplicationController
+class Api::V1::StudiesController < ApplicationController
   protect_from_forgery except: [:index, :create, :update, :destroy]
 
   before_action :authorize_access_request!
