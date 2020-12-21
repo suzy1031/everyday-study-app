@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Record.vue feature test', type: :system do
+RSpec.describe 'Record.vue system test', type: :system do
   before do
     @study = Study.create!(time: 1, total: 2)
   end

@@ -19,7 +19,7 @@ RSpec.describe Api::UsersController, type: :controller do
       end.to change(User, :count).by(1)
     end
 
-    it 'Returns unauthorized for invalid params' do
+    it 'returns unauthorized for invalid params' do
       post :create, params: invalid_params
       expect(response).to have_http_status(422)
     end
