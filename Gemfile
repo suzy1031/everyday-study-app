@@ -22,7 +22,7 @@ gem 'jwt_sessions'
 
 gem 'redis'
 
-gem 'redis-actionpack'
+# gem 'redis-actionpack'
 
 gem 'rack-cors'
 # Use CoffeeScript for .coffee assets and views
