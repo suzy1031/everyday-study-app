@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 // 開発用URL
-const API_URL = 'http://localhost:5000'
+// const API_URL = 'http://localhost:5000'
 // 本番用URL
-// const API_URL = 'https://still-dusk-87527.herokuapp.com/'
+const API_URL = 'https://still-dusk-87527.herokuapp.com'
 
 const securedAxiosInstance = axios.create({
   baseURL: API_URL,
