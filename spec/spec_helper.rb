@@ -13,7 +13,10 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require_relative 'support/auth_helper'
+require_relative 'support/response_helper'
 RSpec.configure do |config|
+  config.include ResponseHelper
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -37,6 +40,8 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.include ResponseHelper
+  config.include AuthHelper
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards
   # compatibility in RSpec 3). It causes shared context metadata to be

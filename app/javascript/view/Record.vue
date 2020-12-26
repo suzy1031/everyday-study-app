@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Title :title="title"></Title>
+    <Header :title="title"></Header>
     <h3>{{ thisWeekDate() }}</h3>
     <div class="study-time-circle">
       <div>
@@ -29,11 +29,11 @@
 
 <script>
 import axios from 'axios';
-import Title from '../components/Title';
+import Header from '../components/Header';
 
 export default {
   components: {
-    Title
+    Header
   },
   data() {
     return {
@@ -54,20 +54,21 @@ export default {
       errors: ''
     }
   },
-  mounted () {
-    axios
-      .get(
-        'api/v1/studies.json'
-      )
-      .then(response => {
-        this.studies = response.data
-        if( this.studies.length == 0 ) { // データが無い場合
-          this.userTotal = [] // 空の配列を返す
-          this.userTotal.total = 0 // totalに初期値「0」をセット
-        } else {
-          this.userTotal = response.data.slice(-1)[0] //最新のstudies.total取得
-        }
-      });
+  created () {
+    if (!localStorage.signedIn) {
+      this.$router.replace('/')
+    } else {
+      this.$http.secured.get('/api/v1/studies')
+        .then(response => {
+          this.studies = response.data
+          if( this.studies.length == 0 ) { // データが無い場合
+            this.userTotal = [] // 空の配列を返す
+            this.userTotal.total = 0 // totalに初期値「0」をセット
+          } else {
+            this.userTotal = response.data.slice(-1)[0] //最新のstudies.total取得
+          }
+        });
+    }
   },
   computed: {
     // 今週の合計時間
@@ -96,24 +97,22 @@ export default {
     }
   },
   methods: {
+    setError (error, text) {
+      this.error = (error.response && error.response.data && error.response.data.error) || text
+    },
     // 学習時間を登録する
     postStudyTime() {
       // 入力した学習時間と最新の合計時間を計算
       var calcTotalValue = parseFloat(this.userTotal.total) + parseFloat(this.study.time)
       // 計算結果を変数に格納し、study.totalに代入する
       this.study.total = calcTotalValue;
-      axios.post('/api/v1/studies', this.study)
+      this.$http.secured.post('/api/v1/studies', this.study)
       .then(response => {
         let e = response.data
-        // 合計時間の最新を取得 セレクトボックス初期化
+        // 合計時間の最新を取得 セレクトボックス初期化の為リロードする
         this.$router.go({path: this.$router.currentRoute.path, force: true})
       })
-      .catch(error => {
-        console.log(error);
-        if (error.response.data && error.response.data.erros) {
-          this.error = error.response.data.errors;
-        }
-      });
+      .catch(error => this.setError(error, 'Cantnot create'));
     },
     // 今週の日付・曜日取得メソッド
     thisWeekDate() {

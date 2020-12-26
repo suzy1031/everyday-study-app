@@ -1,23 +1,40 @@
 <template>
   <div>
-    <Title :title="title"></Title>
-    <!-- todo vuex使ってログアウトする処理 -->
-    <router-link to="/login">
-      <button type="submit" class="study-time-button logout">Logout</button>
-    </router-link>
+    <Header :title="title"></Header>
+    <a href="/" v-if="signedIn" @click="signOut" class="study-time-button logout">Logout</a>
   </div>
 </template>
 
 <script>
-import Title from '../components/Title';
+import Header from '../components/Header'
+import { mapState } from 'vuex'
 
 export default {
   components: {
-    Title
+    Header
   },
   data() {
     return {
       title: "Settings"
+    }
+  },
+  computed: mapState([
+    'signedIn'
+  ]),
+  mounted () {
+    this.$store.dispatch('doFetchSignedIn')
+  },
+  methods: {
+    setError(error, text) {
+      this.error = (error.response && error.response.data && error.response.data.error) || text
+    },
+    signOut() {
+      this.$http.secured.delete(`/api/signin`)
+      .then(response => {
+        delete localStorage.csrf
+        delete localStorage.signedIn
+      })
+      .catch(error => this.setError(error, 'Cannot sign out'))
     }
   }
 }

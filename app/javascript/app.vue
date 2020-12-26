@@ -5,46 +5,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Record from './view/Record';
-import History from './view/History';
-import Setting from './view/Setting';
-import Login from './view/Login';
-import Signup from './view/Signup';
-import Store from './store/store.js';
-
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      component: Record
-    },
-    {
-      path: '/history',
-      component: History
-    },
-    {
-      path: '/setting',
-      component: Setting
-    },
-    {
-      path: '/login',
-      component: Login
-    },
-    {
-      path: '/signup',
-      component: Signup
-    }
-  ]
-})
-
-Vue.use(VueRouter)
 
 export default {
-  router,
-  store: Store,
+  name: 'App',
   data() {
     return {
     }
@@ -81,15 +44,15 @@ button {
   appearance: none;
 }
 input {
-  width: 250px;
-  height: 35px;
-  margin: 5px auto;
+  width: 13em;
+  height: 5em;
+  margin: .4em auto;
   border: none;
   outline: none;
   appearance: none;
   border-radius: .25em;
-  padding: 3px;
-  font-size: 18px;
+  padding: .3em;
+  font-size: 1.8em;
 }
 input:focus {
   outline: none;
@@ -99,6 +62,11 @@ h1 {
 }
 h3 {
   font-size: 1.8em;
+}
+.common-error-message {
+  color: red;
+  font-size: 1.6em;
+  margin-top: .5em;
 }
 /* ここまで */
 </style>
