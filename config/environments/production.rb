@@ -14,11 +14,6 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Production では session_store に Redis を利用する
-  Rails.application.config.session_store :redis_store, {
-    servers: ENV['REDIS_URL'],
-    expire_after: 1.week
-  }
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
