@@ -7,25 +7,46 @@
     <h3>Please Set Weekly Study Time Goal</h3>
   </div>
   <!-- todo エラーメッセージ表示 -->
-  <!-- todo formにする -->
   <div class="login-section">
-    <label for="target-time" class="form-label">Target Time</label>
-    <!-- todo required="required" autocomplete="off"の設定をする -->
-    <!-- todo v-model="target-model"の設定をする -->
-    <input id="target-time" class="goal-input-section" type="target-time">
-    <h3 class="goal-h3-text">Hour / per-week</h3>
+    <form @submit.prevent="postGoal">
+      <label for="target-time" class="form-label">Target Time</label>
+      <input v-model="goal.target_time" id="target-time" class="goal-input-section" type="number" required="required" autocomplete="off">
+      <h3 class="goal-h3-text">Hour / per-week</h3>
+      <button type="submit" class="study-time-button">register</button>
+    </form>
   </div>
-  <button type="submit" class="study-time-button">register</button>
-  <!-- todo formここまで -->
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Goal',
   data() {
     return {
-
+      goal: {
+        target_time: ''
+      },
+      errors: ''
+    }
+  },
+  created () {
+    if (!localStorage.signedIn) {
+      this.$router.replace('/')
+    }
+  },
+  methods: {
+    setError (error, text) {
+      this.error = (error.response && error.response.data && error.response.data.error) || text
+    },
+    postGoal() {
+      this.$http.secured.post('/api/v1/goals', this.goal)
+      .then(response => {
+        let e = response.data
+        this.$router.replace('/record')
+      })
+      .catch(error => this.setError(error, 'Can not create'));
     }
   }
 
