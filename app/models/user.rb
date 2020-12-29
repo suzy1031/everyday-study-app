@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, length: { in: 6..20 }
   has_many :studies
+  has_many :goals #todo 1対1の関係の為has_one :goalとしたいが500 errorが発生
 end
