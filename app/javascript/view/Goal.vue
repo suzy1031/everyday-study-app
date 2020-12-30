@@ -5,6 +5,7 @@
   </div>
   <div class="goal-header-position">
     <h3>Please Set Weekly Study Time Goal</h3>
+    <div class="common-error-message" v-if="error">{{ error }}</div>
   </div>
   <!-- todo エラーメッセージ表示 -->
   <div class="login-section">
@@ -28,18 +29,28 @@ export default {
       goal: {
         target_time: ''
       },
-      errors: ''
+      error: ''
     }
   },
   created () {
+    // ログインしていない場合ログイン画面へリダイレクト
     if (!localStorage.signedIn) {
       this.$router.replace('/')
+    }
+    // 既にgoalを登録している場合'/record'画面へリダイレクト
+    this.$http.secured.get('/api/v1/goals')
+    .then(response => {
+      this.goals = response.data
+    })
+    if(this.goals) {
+      this.$router.replace('/record')
     }
   },
   methods: {
     setError (error, text) {
       this.error = (error.response && error.response.data && error.response.data.error) || text
     },
+    // 目標時間の登録
     postGoal() {
       this.$http.secured.post('/api/v1/goals', this.goal)
       .then(response => {
