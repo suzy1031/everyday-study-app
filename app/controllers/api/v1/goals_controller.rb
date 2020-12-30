@@ -6,6 +6,11 @@ class Api::V1::GoalsController < ApplicationController
   rescue_from Exception, with: :render_status_500
   rescue_from ActiveRecord::RecordNotFound, with: :render_status_404
 
+  def index
+    goals = current_user.goals
+    render json: goals
+  end
+
   def create
     goal = current_user.goals.build(goal_params)
     if goal.save
@@ -26,6 +31,7 @@ class Api::V1::GoalsController < ApplicationController
   def goal_params
     params.require(:goal).permit(:target_time, :user_id)
   end
+
 
   def render_status_404(exception)
     render json: { errors: [exception] }, status: 404
