@@ -11,6 +11,11 @@ class Api::V1::GoalsController < ApplicationController
     render json: goals
   end
 
+  def show
+    @goal = current_user.goals.find(params[:id])
+    render json: @goal
+  end
+
   def create
     goal = current_user.goals.build(goal_params)
     if goal.save

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api, {format: 'json'} do
     namespace :v1 do
       resources :studies, only: [:index, :create]
-      resources :goals, only: [:index, :create, :update]
+      resources :goals, only: [:index, :show, :create, :update]
     end
     post   'signup',  controller: :users,    action: :create
     post   'signin',  controller: :sessions, action: :create
