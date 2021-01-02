@@ -5,25 +5,19 @@
   </div>
   <div class="goal-header-position">
     <h3>Please Set Weekly Study Time Goal</h3>
-    <div class="common-error-message" v-if="error">{{ error }}</div>
   </div>
-  <!-- todo エラーメッセージ表示 -->
-  <div class="login-section">
-    <form @submit.prevent="postGoal">
-      <label for="target-time" class="form-label">Target Time</label>
-      <input v-model="goal.target_time" id="target-time" class="goal-input-section" type="number" required="required" autocomplete="off">
-      <h3 class="goal-h3-text">Hour / per-week</h3>
-      <button type="submit" class="study-time-button">register</button>
-    </form>
-  </div>
+  <div class="common-error-message" v-if="error">{{ error }}</div>
+  <form-pane-goal :error="error" :goal="goal" @submit="postGoal"></form-pane-goal>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
+import FormPaneGoal from '../components/FormPaneGoal.vue';
 
 export default {
-  name: 'Goal',
+  components: { FormPaneGoal },
+  name: 'NewGoal',
   data() {
     return {
       goal: {
@@ -37,7 +31,7 @@ export default {
     if (!localStorage.signedIn) {
       this.$router.replace('/')
     }
-    // 既にgoalを登録している場合'/record'画面へリダイレクト
+    // todo 既にgoalを登録している場合'/record'画面へリダイレクトさせる
     this.$http.secured.get('/api/v1/goals')
     .then(response => {
       this.goals = response.data
