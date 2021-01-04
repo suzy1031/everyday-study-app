@@ -1,13 +1,20 @@
 <template>
   <div>
     <Header :title="title"></Header>
-    <a href="/" v-if="signedIn" @click="signOut" class="study-time-button logout">Logout</a>
+    <div class="target-time-section">
+      <h2>Your Target Time</h2>
+      <div v-for="e in goals" :key="e.id">
+        <h3 class="target-time">{{ e.target_time }} Hour / Week</h3>
+        <router-link :to="{ name: 'EditGoal', params: { id: e.id} }">
+          <button class="button-link">Edit</button>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from '../components/Header'
-import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -15,35 +22,41 @@ export default {
   },
   data() {
     return {
-      title: "Settings"
+      title: "Settings",
+      goals: []
     }
   },
-  computed: mapState([
-    'signedIn'
-  ]),
-  mounted () {
-    this.$store.dispatch('doFetchSignedIn')
-  },
-  methods: {
-    setError(error, text) {
-      this.error = (error.response && error.response.data && error.response.data.error) || text
-    },
-    signOut() {
-      this.$http.secured.delete(`/api/signin`)
-      .then(response => {
-        delete localStorage.csrf
-        delete localStorage.signedIn
-      })
-      .catch(error => this.setError(error, 'Cannot sign out'))
-    }
+  created() {
+    this.$http.secured.get('/api/v1/goals')
+    .then(response => {
+      this.goals = response.data
+    })
   }
 }
 </script>
-<style>
-.logout {
-  position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+<style scoped>
+.target-time-section {
+  width: 30em;
+  height: 15em;
+  border-radius: .3em;
+  margin: 0 auto;
+  margin-top: 4em;
+  border: .15em solid #0066FF;
+}
+.target-time-section > h2 {
+  margin-top: .8em;
+}
+.target-time {
+  margin-top: 1em;
+}
+.button-link {
+  margin-top: 1em;
+  background: #0066FF;
+  border: .1em solid #0066FF;
+  border-radius: .3em;
+  padding: .2em;
+  color: white;
+  font-weight: bold;
+  padding: .3em .5em;
 }
 </style>
