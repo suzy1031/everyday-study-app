@@ -60,6 +60,9 @@ input:focus {
 h1 {
   font-size: 2.8em;
 }
+h2 {
+  font-size: 2.4em;
+}
 h3 {
   font-size: 1.8em;
 }
