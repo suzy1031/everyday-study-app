@@ -17,7 +17,7 @@ RSpec.describe Api::V1::StudiesController, type: :controller do
     @tokens = session.login
   end
 
-  describe ' GET #index' do
+  describe 'GET #index' do
     let!(:study) { create(:study, user: user) }
 
     it 'returns a success response' do
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::StudiesController, type: :controller do
     it 'is unauth without cookie' do
       request.cookies[JWTSessions.access_cookie] = nil
       get :index
-      expect(response). to have_http_status(500)
+      expect(response).to have_http_status(500)
     end
   end
 
