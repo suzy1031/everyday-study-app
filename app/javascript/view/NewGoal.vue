@@ -65,18 +65,4 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.login-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2em;
-  margin-bottom: 1.5em;
-  height: 20em;
-}
-.goal-input-section {
-  height: 1.5em;
-}
-.goal-h3-text {
-  color: white;
-}
 </style>

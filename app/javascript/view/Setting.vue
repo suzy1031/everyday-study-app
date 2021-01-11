@@ -4,9 +4,9 @@
     <div class="target-time-section">
       <h2>Your Target Time</h2>
       <div v-for="e in goals" :key="e.id">
-        <h3 class="target-time">{{ e.target_time }} Hour / Week</h3>
+        <h3 class="margin-top_1">{{ e.target_time }} Hour / Week</h3>
         <router-link :to="{ name: 'EditGoal', params: { id: e.id} }">
-          <button class="button-link">Edit</button>
+          <button class="button-link margin-top_1">Edit</button>
         </router-link>
       </div>
     </div>
@@ -46,11 +46,7 @@ export default {
 .target-time-section > h2 {
   margin-top: .8em;
 }
-.target-time {
-  margin-top: 1em;
-}
 .button-link {
-  margin-top: 1em;
   background: #0066FF;
   border: .1em solid #0066FF;
   border-radius: .3em;

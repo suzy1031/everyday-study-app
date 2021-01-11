@@ -25,3 +25,19 @@ export default {
   }
 }
 </script>
+<style>
+.login-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+  height: 20em;
+}
+.goal-h3-text {
+  color: white;
+}
+.goal-input-section {
+  height: 1.5em;
+}
+</style>
