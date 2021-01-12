@@ -38,7 +38,7 @@
     <div class="button-section margin-top_3">
       <form @submit.prevent="postStudyTime">
         <div class="select">
-          <select id="time" v-model="study.time">
+          <select id="time" v-model="study.time" required="required">
             <option value="">choose study time</option>
             <option value="0.5">0:30</option>
             <option value="1">1:00</option>
@@ -47,7 +47,7 @@
             <!-- <option v-for="option in options" :key="option.text" :value="option.value">{{option.text}}</option> -->
           </select>
         </div>
-        <button v-if="this.study.time" type="submit" class="study-time-button margin-top_1_half">register</button>
+        <button type="submit" class="study-time-button margin-top_1_half">register</button>
       </form>
     </div>
   </div>
@@ -198,12 +198,10 @@ export default {
       this.study.total = calcTotalValue;
       this.$http.secured.post('/api/v1/studies', this.study)
       .then(response => {
-        let e = response.data
-        // this.study.push(response.data)
+        // let e = response.data
+        this.studies.push(response.data)
         // 合計時間の最新を取得 セレクトボックス初期化の為リロードする
-        this.$router.go({path: this.$router.currentRoute.path, force: true})
-        // this.$router.go({ name: 'Record' })
-        // this.$router.replace('/setting')
+        // this.$router.go({path: this.$router.currentRoute.path, force: true})
       })
       .catch(error => this.setError(error, 'Cant not create'));
     },
