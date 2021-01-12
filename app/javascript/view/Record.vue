@@ -199,8 +199,10 @@ export default {
       this.$http.secured.post('/api/v1/studies', this.study)
       .then(response => {
         let e = response.data
+        // this.study.push(response.data)
         // 合計時間の最新を取得 セレクトボックス初期化の為リロードする
-        this.$router.go({path: this.$router.currentRoute.path, force: true})
+        // this.$router.go({path: this.$router.currentRoute.path, force: true})
+        this.$router.go({ name: 'Record' })
       })
       .catch(error => this.setError(error, 'Cant not create'));
     },
