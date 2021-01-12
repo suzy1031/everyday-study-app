@@ -12,8 +12,8 @@ class Api::V1::StudiesController < ApplicationController
   end
 
   def create
-    study = current_user.studies.new(study_params)
-    # srudy = Study.new(study_params)
+    study = Study.new(study_params)
+    # study = current_user.studies.build(study_params)
     if study.save
       render json: study, status: :created
     else
@@ -24,7 +24,7 @@ class Api::V1::StudiesController < ApplicationController
   private
 
   def study_params
-    params.require(:study).permit(:time, :total, :user_id)
+    params.require(:study).permit(:time, :total).merge(user_id: current_user.id)
   end
 
   def render_status_404(exception)

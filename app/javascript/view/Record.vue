@@ -201,8 +201,9 @@ export default {
         let e = response.data
         // this.study.push(response.data)
         // 合計時間の最新を取得 セレクトボックス初期化の為リロードする
-        // this.$router.go({path: this.$router.currentRoute.path, force: true})
-        this.$router.go({ name: 'Record' })
+        this.$router.go({path: this.$router.currentRoute.path, force: true})
+        // this.$router.go({ name: 'Record' })
+        // this.$router.replace('/setting')
       })
       .catch(error => this.setError(error, 'Cant not create'));
     },
