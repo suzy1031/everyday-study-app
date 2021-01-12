@@ -1,7 +1,9 @@
 class Study < ApplicationRecord
   belongs_to :user
 
-  validates :time, presence: true, numericality: true
+  validates :time,
+            presence: true,
+            numericality: { less_than_or_equal_to: 24 }
   validates :total, presence: true, numericality: true
 
   def self.this_week_total

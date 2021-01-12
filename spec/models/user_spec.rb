@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#create' do
-    context 'success' do
+    context 'success create' do
       before do
         @user = FactoryBot.create(:user)
       end
@@ -10,6 +10,12 @@ RSpec.describe User, type: :model do
       it 'is valid with a email, password, password_confirmation' do
         user = @user
         expect(user).to be_valid
+      end
+    end
+
+    context 'failure create' do
+      before do
+        @user = FactoryBot.create(:user)
       end
 
       it 'is null with a email' do

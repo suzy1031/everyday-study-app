@@ -60,6 +60,9 @@ input:focus {
 h1 {
   font-size: 2.8em;
 }
+h2 {
+  font-size: 2.4em;
+}
 h3 {
   font-size: 1.8em;
 }
@@ -69,4 +72,25 @@ h3 {
   margin-top: .5em;
 }
 /* ここまで */
+.margin-top_1 {
+  margin-top: 1em !important;
+}
+.margin-top_1_half {
+  margin-top: 1.5em !important;
+}
+.margin-top_2 {
+  margin-top: 2em !important;
+}
+.margin-top_3 {
+  margin-top: 3em !important;
+}
+.margin-top_5 {
+  margin-top: 5em !important;
+}
+.position-left_0 {
+  left: 0 !important;
+}
+.position-right_0 {
+  right: 0 !important;
+}
 </style>

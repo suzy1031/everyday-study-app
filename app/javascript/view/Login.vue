@@ -76,8 +76,7 @@ export default {
   border-radius: .3em;
   display:flex;
   flex-flow: column;
-  margin: 0 auto;
-  margin-top: 5em;
+  margin: 3em auto;
 }
 .form-label {
   color: white;

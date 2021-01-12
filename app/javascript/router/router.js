@@ -5,6 +5,8 @@ import History from '../view/History';
 import Setting from '../view/Setting';
 import Login from '../view/Login';
 import Signup from '../view/Signup';
+import NewGoal from '../view/NewGoal';
+import EditGoal from '../view/EditGoal';
 
 Vue.use(VueRouter)
 
@@ -32,6 +34,16 @@ export default new VueRouter({
       name: 'Signup',
       component: Signup
     },
+    {
+      path: '/goals/new',
+      name: 'NewGoal',
+      component: NewGoal
+    },
+    {
+      path: '/goals/:id(\\d+)/edit',
+      name: 'EditGoal',
+      component: EditGoal
+    }
   ]
 })
 

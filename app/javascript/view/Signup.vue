@@ -55,7 +55,7 @@ export default {
       localStorage.signedIn = true
       this.$store.dispatch('doFetchSignedIn')
       this.error = ''
-      this.$router.replace('/record')
+      this.$router.replace('/goals/new')
     },
     signupFailed(error) {
       this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
