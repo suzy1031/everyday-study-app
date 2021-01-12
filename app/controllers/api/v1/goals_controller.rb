@@ -17,7 +17,7 @@ class Api::V1::GoalsController < ApplicationController
   end
 
   def create
-    goal = current_user.goals.build(goal_params)
+    goal = Goal.new(goal_params)
     if goal.save
       render json: goal, status: :created
     else
@@ -34,7 +34,7 @@ class Api::V1::GoalsController < ApplicationController
   private
 
   def goal_params
-    params.require(:goal).permit(:target_time, :user_id)
+    params.require(:goal).permit(:target_time).merge(user_id: current_user.id)
   end
 
 
