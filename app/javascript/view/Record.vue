@@ -2,6 +2,7 @@
   <div>
     <Header :title="title"></Header>
     <h3>{{ thisWeekDate() }}</h3>
+    <div class="common-error-message" v-if="error">{{ error }}</div>
     <!-- circle progress bar -->
     <div class="circle-position">
       <!-- 右側の180度分の領域 -->
@@ -15,11 +16,10 @@
       <!-- ここまで -->
       <!-- 円中心のテキスト -->
       <div class="circle-position-center">
-        <div class="margin-top_5">
+        <div class="margin-top_5_half">
           <h2 :style="overHundred">{{ percentAchivement || 0 }}%</h2>
           <h3 class="until-achivement-text">{{ untilAchivement }}h</h3>
           <h3>week：{{ calcThisWeekTotal }}h</h3>
-          <h3>total：{{ userTotal.total }}h</h3>
         </div>
       </div>
       <!-- ここまで -->
@@ -74,12 +74,11 @@ export default {
       ],
       goals: '',
       studies: [],   // response.data格納用配列
-      userTotal: '', // 最新のtotal
       study: {       // v-model
         time: '',
         total: ''
       },
-      errors: '',
+      error: '',
     }
   },
   created () {
@@ -90,15 +89,10 @@ export default {
       this.$http.secured.get('/api/v1/studies')
         .then(response => {
           this.studies = response.data
-          if( this.studies.length == Const.INT_ZERO ) { // データが無い場合
-            this.userTotal = [] // 空の配列を返す
-            this.userTotal.total = Const.INT_ZERO // totalに初期値「0」をセット
-          } else {
-            this.userTotal = response.data.slice(-1)[Const.INT_ZERO] //最新のstudies.total取得
-          }
-        });
-      // ユーザーが登録している目標学習時間を取得
-      this.$http.secured.get('/api/v1/goals')
+        })
+        .catch(error => this.setError(error, 'Something went wrong'));
+
+      this.$http.secured.get('/api/v1/goals') // ユーザーが登録している目標学習時間を取得
         .then(response => {
           this.goals = response.data
           if (this.goals.length == Const.INT_ZERO) {
@@ -107,7 +101,8 @@ export default {
           }else {
             this.goals = response.data[Const.INT_ZERO]
           }
-        });
+        })
+        .catch(error => this.setError(error, 'Something went wrong'));
     }
   },
   computed: {
@@ -115,8 +110,13 @@ export default {
     calcThisWeekTotal() {
       var total = Const.INT_ZERO;
       const length = this.studies.length; // jsonで受けった配列の数
-      // 取得データの日付
-      var data_date = new Date(this.userTotal.created_at); // 最新のレコードの作成日を日付型で取得
+      var latestDate = this.studies.slice(-1)[Const.INT_ZERO]; // 取得データの日付
+
+      // マウント時のundefinedエラー回避
+      if(latestDate) {
+        var data_date = new Date(latestDate.created_at); // 最新のレコードの作成日を日付型で取得
+      }
+
       var today = new Date();
       var this_year = today.getFullYear();
       var this_month = today.getMonth();
@@ -142,8 +142,7 @@ export default {
         return Const.INT_ZERO
       }
       var percent = this.calcThisWeekTotal / this.goals.target_time * 100;
-      // 小数点第1位までを返す(近似値)
-      return percent.toFixed(Const.INT_ONE)
+      return percent.toFixed(Const.INT_ONE) // 小数点第1位までを返す(近似値)
     },
     // 学習時間による角度の計算
     // 返り値 現在の角度 = 360 * 現在の達成度 / 100
@@ -184,7 +183,7 @@ export default {
           "color": "#0066FF",
         }
       }
-    },
+    }
   },
   methods: {
     setError (error, text) {
@@ -192,18 +191,22 @@ export default {
     },
     // 学習時間を登録する
     postStudyTime() {
+      // totalをpostする為、最新のstudies.totalを取得する処理
+      var getArray = this.studies;
+      if(getArray.length == Const.INT_ZERO) { // 配列が無い場合
+        var latestTotal = 0; // 「0」を返す
+      } else {
+        var latestTotal = getArray.slice(-1)[Const.INT_ZERO].total; // 1番後ろの配列からtotalを取得する
+      }
+
       // 入力した学習時間と最新の合計時間を計算
-      var calcTotalValue = parseFloat(this.userTotal.total) + parseFloat(this.study.time);
-      // 計算結果を変数に格納し、study.totalに代入する
-      this.study.total = calcTotalValue;
+      var calcTotalValue = parseFloat(latestTotal) + parseFloat(this.study.time);
+      this.study.total = calcTotalValue; // 計算結果を変数に格納し、study.totalに代入する
       this.$http.secured.post('/api/v1/studies', this.study)
       .then(response => {
-        // let e = response.data
         this.studies.push(response.data)
-        // 合計時間の最新を取得 セレクトボックス初期化の為リロードする
-        // this.$router.go({path: this.$router.currentRoute.path, force: true})
       })
-      .catch(error => this.setError(error, 'Cant not create'));
+      .catch(error => this.setError(error, 'Cannot create'));
     },
     // 今週の日付・曜日取得メソッド
     thisWeekDate() {
