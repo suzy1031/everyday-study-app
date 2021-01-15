@@ -30,6 +30,7 @@ export default {
       .then(response => {
         this.goal = response.data
       })
+      .catch(error => this.setError(error, 'Something went wrong'));
     }
   },
   methods: {
