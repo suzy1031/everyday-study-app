@@ -3,12 +3,10 @@
     <Header :title="title"></Header>
     <div class="target-time-section">
       <h2>Your Target Time</h2>
-      <div v-for="e in goals" :key="e.id">
-        <h3 class="margin-top_1">{{ e.target_time }} Hour / Week</h3>
-        <router-link :to="{ name: 'EditGoal', params: { id: e.id} }">
-          <button class="button-link margin-top_1">Edit</button>
-        </router-link>
-      </div>
+      <h3 class="margin-top_1">{{ this.goal.target_time }} Hour / Week</h3>
+      <router-link :to="{ name: 'EditGoal', params: { id: this.goal.id} }">
+        <button class="button-link margin-top_1">Edit</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -23,14 +21,13 @@ export default {
   data() {
     return {
       title: "Settings",
-      goals: []
+      goal: []
     }
   },
   created() {
     this.$http.secured.get('/api/v1/goals')
-    .then(response => {
-      this.goals = response.data
-    })
+    .then(response => this.goal = response.data[0])
+    .catch(error => this.setError(error, 'Something went wrong'));
   }
 }
 </script>
