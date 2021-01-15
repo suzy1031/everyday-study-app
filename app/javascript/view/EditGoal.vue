@@ -2,6 +2,9 @@
   <div>
     <Header :title="title"></Header>
     <form-pane-goal :error="error" :goal="goal" @submit="updateGoal"></form-pane-goal>
+    <div class="margin-top_1_half">
+      <BackButton></BackButton>
+    </div>
   </div>
 </template>
 
@@ -9,11 +12,13 @@
 import axios from 'axios';
 import FormPaneGoal from '../components/FormPaneGoal.vue';
 import Header from '../components/Header'
+import BackButton from '../components/BackButton'
 
 export default {
   components: {
     FormPaneGoal,
-    Header
+    Header,
+    BackButton
   },
   data() {
     return {
