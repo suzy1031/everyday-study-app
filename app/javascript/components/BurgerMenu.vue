@@ -9,20 +9,13 @@
     <router-link to="/setting">
       <span>Setting</span>
     </router-link>
-    <a href="/" v-if="signedIn" @click="signOut">
+    <a href="#" @click.prevent="signOut">
       <span>Logout</span>
     </a>
   </slide>
 </template>
 <script>
-import { mapState } from 'vuex'
 export default {
-  computed: mapState([
-    'signedIn'
-  ]),
-  mounted () {
-    this.$store.dispatch('doFetchSignedIn')
-  },
   methods: {
     setError(error, text) {
       this.error = (error.response && error.response.data && error.response.data.error) || text
@@ -32,6 +25,7 @@ export default {
       .then(response => {
         delete localStorage.csrf
         delete localStorage.signedIn
+        this.$router.replace('/')
       })
       .catch(error => this.setError(error, 'Cannot sign out'))
     }
