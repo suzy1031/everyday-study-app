@@ -13,7 +13,6 @@ class Api::V1::StudiesController < ApplicationController
 
   def create
     study = Study.new(study_params)
-    # study = current_user.studies.build(study_params)
     if study.save
       render json: study, status: :created
     else

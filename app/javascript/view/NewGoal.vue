@@ -20,6 +20,7 @@ export default {
   name: 'NewGoal',
   data() {
     return {
+      goals: [],
       goal: {
         target_time: ''
       },
@@ -32,13 +33,6 @@ export default {
       this.$router.replace('/')
     }
     // todo 既にgoalを登録している場合'/record'画面へリダイレクトさせる
-    this.$http.secured.get('/api/v1/goals')
-    .then(response => {
-      this.goals = response.data
-    })
-    if(this.goals) {
-      this.$router.replace('/record')
-    }
   },
   methods: {
     setError (error, text) {
@@ -48,7 +42,7 @@ export default {
     postGoal() {
       this.$http.secured.post('/api/v1/goals', this.goal)
       .then(response => {
-        let e = response.data
+        this.goals.push(response.data)
         this.$router.replace('/record')
       })
       .catch(error => this.setError(error, 'Can not create'));
