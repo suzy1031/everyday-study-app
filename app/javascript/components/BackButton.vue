@@ -1,5 +1,5 @@
 <template>
-  <a @click="$router.back()">Back</a>
+  <a href="#" @click.prevent="$router.back()">Back</a>
 </template>
 <style scoped>
 a {
