@@ -16,6 +16,8 @@ library.add(fas, far, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('slide', Slide);
 
+Vue.config.productionTip = false;
+
 Vue.use(VueAxios, {
   secured: securedAxiosInstance,
   plain: plainAxiosInstance
