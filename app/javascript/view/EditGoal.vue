@@ -35,7 +35,13 @@ export default {
       .then(response => {
         this.goal = response.data
       })
-      .catch(error => this.setError(error, 'Something went wrong'));
+      .catch(error => {
+        this.setError(error, 'Something went wrong')
+        delete localStorage.csrf
+        delete localStorage.signedIn
+        this.$router.replace('/')
+        }
+      );
     }
   },
   methods: {

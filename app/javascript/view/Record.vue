@@ -90,7 +90,13 @@ export default {
         .then(response => {
           this.studies = response.data
         })
-        .catch(error => this.setError(error, 'Something went wrong'));
+        .catch(error => {
+          this.setError(error, 'Something went wrong')
+          delete localStorage.csrf
+          delete localStorage.signedIn
+          this.$router.replace('/')
+          }
+        );
 
       this.$http.secured.get('/api/v1/goals') // ユーザーが登録している目標学習時間を取得
         .then(response => {
@@ -102,7 +108,13 @@ export default {
             this.goals = response.data[Const.INT_ZERO]
           }
         })
-        .catch(error => this.setError(error, 'Something went wrong'));
+        .catch(error => {
+          this.setError(error, 'Something went wrong')
+          delete localStorage.csrf
+          delete localStorage.signedIn
+          this.$router.replace('/')
+          }
+        );
     }
   },
   computed: {
@@ -110,12 +122,9 @@ export default {
     calcThisWeekTotal() {
       var total = Const.INT_ZERO;
       const length = this.studies.length; // jsonで受けった配列の数
-      var latestDate = this.studies.slice(-1)[Const.INT_ZERO]; // 取得データの日付
-
-      // マウント時のundefinedエラー回避
-      if(latestDate) {
-        var data_date = new Date(latestDate.created_at); // 最新のレコードの作成日を日付型で取得
-      }
+      // 短絡評価(論理演算子) 左辺がnull・undefinedの時は「0」が代入
+      var latestDate = this.studies.slice(-1)[Const.INT_ZERO] || Const.INT_ZERO; // 取得データの日付
+      var data_date = new Date(latestDate.created_at); // 最新のレコードの作成日を日付型で取得
 
       var today = new Date();
       var this_year = today.getFullYear();
@@ -131,17 +140,13 @@ export default {
         for(let i = Const.INT_ZERO; i < length; i++) { // 配列の数分ループ処理をする
           total += this.studies[i].time //studies[配列の数].timeをtotalに代入
         }
-        return total
+        return total.toFixed(Const.INT_ONE)
       }
     },
     // 学習時間（h）=> 達成率（%）への計算
     // return 現在の達成度 = 今週の学習時間 / 目標学習時間 * 100
     percentAchivement() {
-      // NaN対策
-      if(this.goals.target_time == undefined) {
-        return Const.INT_ZERO
-      }
-      var percent = this.calcThisWeekTotal / this.goals.target_time * 100;
+      var percent = this.calcThisWeekTotal / this.goals.target_time * 100 || Const.INT_ZERO;
       return percent.toFixed(Const.INT_ONE) // 小数点第1位までを返す(近似値)
     },
     // 学習時間による角度の計算
@@ -165,16 +170,10 @@ export default {
     },
     // 達成まで残り時間数を計算
     untilAchivement() {
-      // NaN対策
-      if(this.goals.target_time == undefined) {
-        return Const.INT_ZERO
-      }
-      var leftStudyTime = this.calcThisWeekTotal - this.goals.target_time;
+      var leftStudyTime = this.calcThisWeekTotal - this.goals.target_time || Const.INT_ZERO;
       // 残り学習時間が0以上の時は「+」を頭に付ける
-      if(leftStudyTime > Const.INT_ZERO) {
-        return "+" + leftStudyTime
-      }
-      return leftStudyTime
+      var result = leftStudyTime > Const.INT_ZERO ? "+" + leftStudyTime.toFixed(Const.INT_ONE) : leftStudyTime.toFixed(Const.INT_ONE)
+      return result
     },
     // 達成率100%以上はstyle変更
     overHundred() {
@@ -193,12 +192,7 @@ export default {
     postStudyTime() {
       // totalをpostする為、最新のstudies.totalを取得する処理
       var getArray = this.studies;
-      if(getArray.length == Const.INT_ZERO) { // 配列が無い場合
-        var latestTotal = 0; // 「0」を返す
-      } else {
-        var latestTotal = getArray.slice(-1)[Const.INT_ZERO].total; // 1番後ろの配列からtotalを取得する
-      }
-
+      var latestTotal = getArray.length == Const.INT_ZERO ? Const.INT_ZERO : getArray.slice(-1)[Const.INT_ZERO].total;
       // 入力した学習時間と最新の合計時間を計算
       var calcTotalValue = parseFloat(latestTotal) + parseFloat(this.study.time);
       this.study.total = calcTotalValue; // 計算結果を変数に格納し、study.totalに代入する
