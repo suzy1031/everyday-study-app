@@ -36,6 +36,25 @@ RSpec.describe Api::V1::StudiesController, type: :controller do
     end
   end
 
+  describe 'GET #histories' do
+    let!(:study) { create(:study, user: user) }
+
+    it 'returns a success response' do
+      request.cookies[JWTSessions.access_cookie] = @tokens[:access]
+      get :history
+      expect(response).to be_successful
+      expect(response_json.size).to eq(1)
+      expect(response_json.first['id']).to eq study.id
+      expect(response).to have_http_status(200)
+    end
+
+    it 'is unauth without cookies' do
+      request.cookies[JWTSessions.access_cookie] = nil
+      get :history
+      expect(response).to have_http_status(500)
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new study' do

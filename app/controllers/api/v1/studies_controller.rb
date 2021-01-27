@@ -1,5 +1,5 @@
 class Api::V1::StudiesController < ApplicationController
-  protect_from_forgery except: [:index, :create, :update, :destroy]
+  protect_from_forgery except: [:index, :history, :create, :update, :destroy]
 
   before_action :authorize_access_request!
 
@@ -9,6 +9,11 @@ class Api::V1::StudiesController < ApplicationController
   def index
     studies = current_user.studies.this_week_total
     render json: studies
+  end
+
+  def history
+    histories = current_user.studies.get_week_chart_data
+    render json: histories
   end
 
   def create
