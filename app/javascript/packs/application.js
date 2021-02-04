@@ -11,6 +11,7 @@ import Store from '../store/store.js'
 import Router from '../router/router.js'
 import VueAxios from 'vue-axios'
 import { securedAxiosInstance, plainAxiosInstance } from '../axios/axios.js'
+import VCalendar from 'v-calendar'
 
 library.add(fas, far, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -22,6 +23,8 @@ Vue.use(VueAxios, {
   secured: securedAxiosInstance,
   plain: plainAxiosInstance
 })
+
+Vue.use(VCalendar)
 
 new Vue({
   el: '#app',
