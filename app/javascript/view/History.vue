@@ -8,6 +8,7 @@
       <span class="tab-text">Year</span>
     </div>
     <Chart class="chart" v-if="loaded" :chartData="chartData" :options="options"/>
+    <Calendar />
   </div>
 </template>
 
@@ -15,11 +16,13 @@
 import Header from '../components/Header';
 import Chart from '../components/Chart';
 import Const from '../const/const';
+import Calendar from '../components/Calendar';
 
 export default {
   components: {
     Header,
-    Chart
+    Chart,
+    Calendar
   },
   data() {
     return {
